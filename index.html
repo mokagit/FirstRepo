@@ -489,19 +489,19 @@ const TOURNAMENT_CONTROL={
   role:'Tournament Control · Scoring & Shuttle Manager'
 };
 const QUAL_REFEREES=[
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Backup referee — TBD'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
   ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Taha Lakda'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Backup referee — TBD'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
   ['Yusuf Bombaywala','Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Backup referee — TBD'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
   ['Taha Lakda','Yusuf Bombaywala','Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Backup referee — TBD'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
   ['Murtuza Z Lokhandwala','Taha Lakda','Yusuf Bombaywala','Adnan Bootwala','Huzefa Madraswala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Backup referee — TBD'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
   ['Mohammed Kafuri','Murtuza Z Lokhandwala','Taha Lakda','Yusuf Bombaywala','Adnan Bootwala']
 ];
 function refereeForFixture(f){
-  return (QUAL_REFEREES[f.slot]&&QUAL_REFEREES[f.slot][f.court-1])||'TBD';
+  return (QUAL_REFEREES[f.slot]&&QUAL_REFEREES[f.slot][f.court-1])||'';
 }
 
 const DAY_TIMELINE=[
@@ -775,7 +775,7 @@ function viewMatches(c,r){
         '<span class="sb-row'+rowCls('b')+'"><span class="nm"><span class="nm-team"><span class="t">'+esc((T[f.b]||{}).name||'?')+'</span>'+((T[f.b]||{}).players?'<span class="players">'+esc((T[f.b]||{}).players)+'</span>':'')+'</span></span>'+scoreCols('qual',o,res,'b').join('')+'</span>'+
         (o.needsDecider?'<span class="sub"><span class="chip warn">Totals tied – needs deciding game</span></span>':'')+
         (res&&res.wo?'<span class="sub"><span class="chip">Walkover</span></span>':'')+
-        '<span class="ref-line">Referee: <b>'+esc(refereeForFixture(f))+'</b></span>'+
+        (refereeForFixture(f)?'<span class="ref-line">Referee: <b>'+esc(refereeForFixture(f))+'</b></span>':'')+
         '</span>'+
         (ed?'<span class="act'+(o.done?'':' go')+'">'+(o.done?'Edit':(o.started?'Finish':'Score'))+'</span>':'<span></span>')+
         '</'+tag+'>';
@@ -976,7 +976,7 @@ function openSheet(kind,id){
   let a,b,fk,where,title,f=null;
   if(kind==='qual'){
     f=c.fixtures.find(x=>x.id===id); if(!f) return;
-    a=f.a;b=f.b;fk='qual';where='Court '+f.court+' · '+fmtTime(QUAL_START+f.slot*SLOT_MIN)+' · Referee: '+refereeForFixture(f);title='Qualifying match';
+    a=f.a;b=f.b;fk='qual';where='Court '+f.court+' · '+fmtTime(QUAL_START+f.slot*SLOT_MIN)+(refereeForFixture(f)?' · Referee: '+refereeForFixture(f):'');title='Qualifying match';
   } else {
     if(!Array.isArray(c.seeds)) return;
     const m=koBracket(c.seeds,r)[id]; if(!m||!m.a||!m.b) return;
