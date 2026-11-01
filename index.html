@@ -499,7 +499,7 @@ const QUAL_REFEREES=[
   ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda'],
   ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
   ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda']
-];
+]
 function refereeForFixture(f){
   return (QUAL_REFEREES[f.slot]&&QUAL_REFEREES[f.slot][f.court-1])||'';
 }
@@ -516,7 +516,7 @@ const DAY_TIMELINE=[
   ['4:00–5:00 PM','Semifinals'],
   ['5:00–5:30 PM','Prayer Break'],
   ['5:30–6:30 PM','Final + 3rd Place Match · simultaneous']
-]
+];
 
 /* ---------- App state ---------- */
 const S={mode:'loading',cfgRemote:undefined,resRemote:undefined,sample:false,sampleCfg:null,sampleRes:null,canWrite:false,authUser:null,tab:'matches',filter:'all',team:'',sheet:null,armed:null,setupDirty:false,dbError:false};
