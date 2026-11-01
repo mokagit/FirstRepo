@@ -463,6 +463,8 @@ function makeSample(){
 }
 // ===== LOGIC END =====
 
+const AUTHORIZED_EDITORS=['mohammadkafuri52@gmail.com'];
+
 const REFEREE_POOL=[
   'Adnan Bootwala',
   'Huzefa Madraswala',
@@ -1035,8 +1037,10 @@ window.addEventListener('hashchange',route);
     backend=dbBackend(db);
     firebaseAuth.onAuthStateChanged(user=>{
       S.authUser=user||null;
-      S.canWrite=!!user;
+      const email=(user&&user.email?user.email:'').toLowerCase();
+      S.canWrite=AUTHORIZED_EDITORS.includes(email);
       render();
+      if(user&&!S.canWrite) toast('Signed in, but this Google account is view-only.');
     });
     backend.start();
     return;
