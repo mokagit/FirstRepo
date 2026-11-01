@@ -489,17 +489,17 @@ const TOURNAMENT_CONTROL={
   role:'Tournament Control · Scoring & Shuttle Manager'
 };
 const QUAL_REFEREES=[
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
-  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Taha Lakda'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
-  ['Yusuf Bombaywala','Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
-  ['Taha Lakda','Yusuf Bombaywala','Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
-  ['Murtuza Z Lokhandwala','Taha Lakda','Yusuf Bombaywala','Adnan Bootwala','Huzefa Madraswala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra',null],
-  ['Mohammed Kafuri','Murtuza Z Lokhandwala','Taha Lakda','Yusuf Bombaywala','Adnan Bootwala']
-];
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala']
+]
 function refereeForFixture(f){
   return (QUAL_REFEREES[f.slot]&&QUAL_REFEREES[f.slot][f.court-1])||'';
 }
