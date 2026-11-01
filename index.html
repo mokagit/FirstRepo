@@ -53,6 +53,9 @@ h1 em{font-style:normal;color:var(--gold)}
 .status.live i{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.2)}
 .auth-btn{appearance:none;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:var(--on-navy);border-radius:999px;padding:5px 9px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
 .auth-btn:hover{background:rgba(255,255,255,.15)}
+.login-card{display:flex;flex-direction:column;gap:10px}
+.login-card .field{font-size:16px}
+.login-note{font-size:12.5px;color:var(--muted);margin:0}
 .status.sample i{background:var(--gold)}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
 .tabs::-webkit-scrollbar{display:none}
@@ -620,22 +623,48 @@ function renderAuthButton(){
     b.textContent=label+' · Sign out';
     b.title=S.authUser.email||'Signed in';
   } else {
-    b.textContent='Organizer login';
-    b.title='Sign in with Google to enter scores';
+    b.textContent='Referee login';
+    b.title='Sign in with the shared referee account to enter scores';
   }
+}
+function openLoginSheet(){
+  const root=$('#sheet-root');
+  root.innerHTML='<div class="overlay" data-login="backdrop"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="login-title">'+
+    '<div class="sh-head"><div><div class="eyebrow">Referee access</div><h2 id="login-title">Referee login</h2></div><button class="btn sm" data-login="close">Close</button></div>'+
+    '<div class="login-card"><input id="login-email" class="field" type="email" inputmode="email" autocomplete="username" placeholder="Referee email">'+
+    '<input id="login-pass" class="field" type="password" autocomplete="current-password" placeholder="Password">'+
+    '<p class="login-note">Use the shared referee account provided by the organizer.</p>'+
+    '<button class="btn primary" id="login-submit" data-login="submit">Sign in</button></div></div></div>';
+  document.documentElement.classList.add('lock');
+  setTimeout(()=>{const e=$('#login-email');if(e)e.focus();},30);
 }
 async function organizerLogin(){
   if(!window.firebaseAuth) return;
   if(S.authUser){await firebaseAuth.signOut();return;}
-  const provider=new firebase.auth.GoogleAuthProvider();
-  try{await firebaseAuth.signInWithPopup(provider);}
-  catch(e){
-    if(e&&e.code==='auth/popup-blocked'){
-      try{await firebaseAuth.signInWithRedirect(provider);}catch(x){toast('Could not open Google sign-in.');}
-    } else if(e&&e.code!=='auth/popup-closed-by-user') toast('Sign-in failed: '+((e&&e.message)||'unknown error'));
-  }
+  openLoginSheet();
 }
 document.addEventListener('click',e=>{if(e.target&&e.target.id==='auth-btn')organizerLogin();});
+$('#sheet-root').addEventListener('click',async e=>{
+  const t=e.target.closest('[data-login]'); if(!t) return;
+  const act=t.dataset.login;
+  if(act==='backdrop'&&e.target!==t) return;
+  if(act==='close'||act==='backdrop'){closeSheet();return;}
+  if(act==='submit'){
+    const email=($('#login-email')||{}).value||'';
+    const pass=($('#login-pass')||{}).value||'';
+    if(!email.trim()||!pass){toast('Enter the referee email and password.');return;}
+    const btn=$('#login-submit'); if(btn){btn.disabled=true;btn.textContent='Signing in…';}
+    try{
+      await firebaseAuth.signInWithEmailAndPassword(email.trim(),pass);
+      closeSheet();
+      toast('Referee login successful.');
+    }catch(err){
+      if(btn){btn.disabled=false;btn.textContent='Sign in';}
+      const code=(err&&err.code)||'';
+      toast(code==='auth/invalid-credential'?'Incorrect email or password.':'Sign-in failed: '+((err&&err.message)||'unknown error'));
+    }
+  }
+});
 function renderStatus(){
   const el=$('#status');let cls='',txt='Connecting';
   if(S.sample){cls='sample';txt='Sample preview';}
@@ -1039,10 +1068,8 @@ window.addEventListener('hashchange',route);
     backend=dbBackend(db);
     firebaseAuth.onAuthStateChanged(user=>{
       S.authUser=user||null;
-      const email=(user&&user.email?user.email:'').toLowerCase();
-      S.canWrite=AUTHORIZED_EDITORS.includes(email);
+      S.canWrite=!!user;
       render();
-      if(user&&!S.canWrite) toast('Signed in, but this Google account is view-only.');
     });
     backend.start();
     return;
