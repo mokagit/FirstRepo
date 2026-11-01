@@ -51,6 +51,8 @@ h1 em{font-style:normal;color:var(--gold)}
 .status{flex:none;font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--on-navy);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--on-navy-muted);display:inline-block}
 .status.live i{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,.2)}
+.auth-btn{appearance:none;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:var(--on-navy);border-radius:999px;padding:5px 9px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.auth-btn:hover{background:rgba(255,255,255,.15)}
 .status.sample i{background:var(--gold)}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
 .tabs::-webkit-scrollbar{display:none}
@@ -227,7 +229,7 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
         <div class="eyebrow">Sun, Nov 8 · Ignite Sports, Scarborough</div>
         <h1>Men's Doubles <em>Scoreboard</em></h1>
       </div>
-      <span class="status" id="status"><i></i><span>Connecting</span></span>
+      <div style="display:flex;align-items:center;gap:7px"><span class="status" id="status"><i></i><span>Connecting</span></span><button class="auth-btn" id="auth-btn" type="button">Organizer login</button></div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <a href="#matches" role="tab" data-tab="matches">Matches</a>
@@ -246,6 +248,7 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script>
 firebase.initializeApp({
   apiKey: "AIzaSyAPAt6QU7JBL8kGNU-BuUGjpcUeanasggc",
@@ -256,6 +259,7 @@ firebase.initializeApp({
   appId: "1:538301733306:web:1d0f15ce384eb45f6be583"
 });
 const firebaseDb = firebase.firestore();
+const firebaseAuth = firebase.auth();
 </script>
 
 <script>
@@ -490,7 +494,7 @@ const DAY_TIMELINE=[
 ];
 
 /* ---------- App state ---------- */
-const S={mode:'loading',cfgRemote:undefined,resRemote:undefined,sample:false,sampleCfg:null,sampleRes:null,canWrite:null,tab:'matches',filter:'all',team:'',sheet:null,armed:null,setupDirty:false,dbError:false};
+const S={mode:'loading',cfgRemote:undefined,resRemote:undefined,sample:false,sampleCfg:null,sampleRes:null,canWrite:false,authUser:null,tab:'matches',filter:'all',team:'',sheet:null,armed:null,setupDirty:false,dbError:false};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cfg=()=>S.sample?S.sampleCfg:S.cfgRemote;
@@ -597,7 +601,7 @@ function enterSample(){const d=makeSample();S.sampleCfg=d.cfg;S.sampleRes=d.res;
 
 /* ---------- Rendering ---------- */
 function render(){
-  renderStatus();renderTabs();renderBanner();
+  renderStatus();renderAuthButton();renderTabs();renderBanner();
   const main=$('#main');
   if(S.cfgRemote===undefined||S.resRemote===undefined){main.innerHTML='<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>';return;}
   if(S.tab==='setup'&&S.setupDirty&&main.dataset.tab==='setup') return;
@@ -605,10 +609,33 @@ function render(){
   const c=cfg(), r=results();
   main.innerHTML=S.tab==='standings'?viewStandings(c,r):S.tab==='knockout'?viewKnockout(c,r):S.tab==='setup'?viewSetup():viewMatches(c,r);
 }
+function renderAuthButton(){
+  const b=$('#auth-btn'); if(!b) return;
+  if(S.authUser){
+    const label=(S.authUser.displayName||S.authUser.email||'Organizer').split(' ')[0];
+    b.textContent=label+' · Sign out';
+    b.title=S.authUser.email||'Signed in';
+  } else {
+    b.textContent='Organizer login';
+    b.title='Sign in with Google to enter scores';
+  }
+}
+async function organizerLogin(){
+  if(!window.firebaseAuth) return;
+  if(S.authUser){await firebaseAuth.signOut();return;}
+  const provider=new firebase.auth.GoogleAuthProvider();
+  try{await firebaseAuth.signInWithPopup(provider);}
+  catch(e){
+    if(e&&e.code==='auth/popup-blocked'){
+      try{await firebaseAuth.signInWithRedirect(provider);}catch(x){toast('Could not open Google sign-in.');}
+    } else if(e&&e.code!=='auth/popup-closed-by-user') toast('Sign-in failed: '+((e&&e.message)||'unknown error'));
+  }
+}
+document.addEventListener('click',e=>{if(e.target&&e.target.id==='auth-btn')organizerLogin();});
 function renderStatus(){
   const el=$('#status');let cls='',txt='Connecting';
   if(S.sample){cls='sample';txt='Sample preview';}
-  else if(S.mode==='db'){cls=S.dbError?'':'live';txt=S.dbError?'Offline':(S.canWrite===false?'Live · view only':'Live · shared');}
+  else if(S.mode==='db'){cls=S.dbError?'':'live';txt=S.dbError?'Offline':(S.authUser?'Live · organizer':'Live · view only');}
   else if(S.mode==='local'){txt='This device only';}
   el.className='status '+cls;el.innerHTML='<i></i><span>'+txt+'</span>';
 }
@@ -1004,8 +1031,13 @@ window.addEventListener('hashchange',route);
   if(window.firebaseDb){
     db=window.firebaseDb;
     S.mode='db';
-    S.canWrite=true;
+    S.canWrite=false;
     backend=dbBackend(db);
+    firebaseAuth.onAuthStateChanged(user=>{
+      S.authUser=user||null;
+      S.canWrite=!!user;
+      render();
+    });
     backend.start();
     return;
   }
