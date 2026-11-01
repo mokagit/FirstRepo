@@ -524,7 +524,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cfg=()=>S.sample?S.sampleCfg:S.cfgRemote;
 const results=()=>(S.sample?S.sampleRes:S.resRemote)||{};
-const editable=()=>S.sample||S.canWrite!==false;
+const editable=()=>!S.sample&&S.canWrite===true;
 const lsGet=k=>{try{return localStorage.getItem(k);}catch(e){return null;}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
 function teamsById(c){const m={};((c&&c.teams)||[]).forEach(t=>{m[t.id]=t;});return m;}
@@ -662,6 +662,18 @@ async function organizerLogin(){
   openLoginSheet();
 }
 document.addEventListener('click',e=>{if(e.target&&e.target.id==='auth-btn')organizerLogin();});
+document.addEventListener('click',async e=>{
+  if(!(e.target&&e.target.id==='activate-live')) return;
+  if(!S.authUser||S.canWrite!==true){toast('Referee login required.');return;}
+  try{
+    await backend.setConfig(blankCfg());
+    S.sample=false;
+    toast('Live tournament activated.');
+    location.hash='#matches';
+  }catch(err){
+    toast('Could not activate live tournament: '+((err&&err.message)||'unknown error'));
+  }
+});
 $('#sheet-root').addEventListener('click',async e=>{
   const t=e.target.closest('[data-login]'); if(!t) return;
   const act=t.dataset.login;
@@ -695,8 +707,8 @@ function renderBanner(){
   const b=$('#banner');
   if(S.sample){
     b.className='banner';
-    b.innerHTML='<div class="wrap"><p><strong>Official tournament preview.</strong> The approved T1–T20 roster and 50-match schedule are loaded. Save from Setup to make this the shared live tournament.</p>'+
-      (S.canWrite===false?'':'<a class="btn gold sm" href="#setup">Save official tournament</a>')+'</div>';
+    b.innerHTML='<div class="wrap"><p><strong>Official tournament preview.</strong> This preview is read-only. Sign in as a referee to activate the shared live tournament.</p>'+
+      (S.canWrite===true?'<button class="btn gold sm" id="activate-live" type="button">Activate live tournament</button>':'')+'</div>';
   } else if(S.mode==='local'&&S.cfgRemote!==undefined){
     b.className='banner ro';
     b.innerHTML='<div class="wrap"><p>Scores are saved on this device only. Open the published page in Claude to share live scoring with your volunteers.</p></div>';
@@ -729,7 +741,7 @@ function colsVar(fk,res){
 }
 
 function viewMatches(c,r){
-  if(!c) return emptyState('No tournament yet','The official tournament schedule is ready in Setup.');
+  if(!c) return emptyState('No tournament yet','Sign in as a referee to activate the official tournament.');
   if(!c.fixtures||!c.fixtures.length) return emptyState('No draw yet','Your teams are saved. Load the official 50-match schedule in Setup.',true);
   const T=teamsById(c), st=computeStandings(c,r);
   const state=f=>{const res=r[f.id];if(res&&res.ta&&(res.ta!==f.a||res.tb!==f.b))return {o:{done:false},res:null};return {o:outcome('qual',res,c.deciderCounts),res};};
