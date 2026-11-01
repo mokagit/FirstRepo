@@ -499,6 +499,23 @@ const QUAL_REFEREES=[
   ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda'],
   ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
   ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda']
+];
+function refereeForFixture(f){
+  return (QUAL_REFEREES[f.slot]&&QUAL_REFEREES[f.slot][f.court-1])||'';
+}
+
+const DAY_TIMELINE=[
+  ['8:30 AM','Player reporting & check-in'],
+  ['9:00 AM–12:20 PM','Qualifying matches · 5 courts · 50 matches'],
+  ['12:20–12:30 PM','Standings & Top 16 confirmation'],
+  ['12:30–1:30 PM','Lunch / Prayer Break'],
+  ['1:30–2:15 PM','Round of 16 · Wave 1'],
+  ['2:15–3:00 PM','Round of 16 · Wave 2'],
+  ['3:00–3:45 PM','Quarterfinals'],
+  ['3:45–4:00 PM','Bracket update / transition'],
+  ['4:00–5:00 PM','Semifinals'],
+  ['5:00–5:30 PM','Prayer Break'],
+  ['5:30–6:30 PM','Final + 3rd Place Match · simultaneous']
 ]
 
 /* ---------- App state ---------- */
