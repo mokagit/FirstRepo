@@ -477,46 +477,29 @@ const REFEREE_POOL=[
   'Huzefa Madraswala',
   'Mohammed Kafuri',
   'Aliasger Mala',
-  'Murtuza Z Lokhandwala',
+  'Murtaza Z Lokhandwala',
   'Huzefa Unwala',
   'Yusuf Hotelwala',
   'Murtuza Bohra',
   'Taha Lakda',
-  'Yusuf Bombaywala'
+  'Najmuddin Jaorawala'
 ];
 const TOURNAMENT_CONTROL={
   name:'Hasnain Mahesry',
   role:'Tournament Control · Scoring & Shuttle Manager'
 };
 const QUAL_REFEREES=[
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
-  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
-  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
-  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
-  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala'],
-  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Taha Lakda'],
-  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtuza Z Lokhandwala','Yusuf Bombaywala']
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda'],
+  ['Aliasger Mala','Huzefa Unwala','Yusuf Hotelwala','Murtuza Bohra','Najmuddin Jaorawala'],
+  ['Adnan Bootwala','Huzefa Madraswala','Mohammed Kafuri','Murtaza Z Lokhandwala','Taha Lakda']
 ]
-function refereeForFixture(f){
-  return (QUAL_REFEREES[f.slot]&&QUAL_REFEREES[f.slot][f.court-1])||'';
-}
-
-const DAY_TIMELINE=[
-  ['8:30 AM','Player reporting & check-in'],
-  ['9:00 AM–12:20 PM','Qualifying matches · 5 courts · 50 matches'],
-  ['12:20–12:30 PM','Standings & Top 16 confirmation'],
-  ['12:30–1:30 PM','Lunch / Prayer Break'],
-  ['1:30–2:15 PM','Round of 16 · Wave 1'],
-  ['2:15–3:00 PM','Round of 16 · Wave 2'],
-  ['3:00–3:45 PM','Quarterfinals'],
-  ['3:45–4:00 PM','Bracket update / transition'],
-  ['4:00–5:00 PM','Semifinals'],
-  ['5:00–5:30 PM','Prayer Break'],
-  ['5:30–6:30 PM','Final + 3rd Place Match · simultaneous']
-];
 
 /* ---------- App state ---------- */
 const S={mode:'loading',cfgRemote:undefined,resRemote:undefined,sample:false,sampleCfg:null,sampleRes:null,canWrite:false,authUser:null,tab:'matches',filter:'all',team:'',sheet:null,armed:null,setupDirty:false,dbError:false};
