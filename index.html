@@ -260,6 +260,8 @@ firebase.initializeApp({
 });
 const firebaseDb = firebase.firestore();
 const firebaseAuth = firebase.auth();
+window.firebaseDb = firebaseDb;
+window.firebaseAuth = firebaseAuth;
 </script>
 
 <script>
