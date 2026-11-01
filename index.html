@@ -1002,7 +1002,7 @@ function openSheet(kind,id){
     '<div class="sh-head"><div><div class="eyebrow">'+esc(where)+'</div><h2 id="sh-title">'+esc(title)+'</h2></div><button class="btn sm" data-sh="close">Close</button></div>'+
     (stale?'<p class="note">The teams in this match changed since the last score was entered. Enter the score again.</p>':'')+
     '<div class="grid-in">'+rows+'</div><p class="hint">'+F.hint+'</p><div class="msgs" id="sh-msg"></div><p class="result-line" id="sh-result"></p>'+
-    '<div class="sh-actions"><button class="btn primary" id="sh-save" data-sh="save">Save score</button><button class="btn" data-sh="close">Cancel</button></div>'+
+    '<div class="sh-actions" style="grid-template-columns:1fr auto auto"><button class="btn primary" id="sh-save" data-sh="save">Save score</button>'+(raw?'<button class="btn danger" id="sh-reset" data-sh="clear">Reset score</button>':'')+'<button class="btn" data-sh="close">Cancel</button></div>'+
     '<details class="more"><summary>Walkover, clear'+(kind==='qual'?' or change teams':'')+'</summary>'+more+'</details></div></div>';
   S.sheet={kind,id,a,b,fk,n,f,armedClear:false};
   document.documentElement.classList.add('lock');
@@ -1047,7 +1047,9 @@ function updateSheet(){
   const btn=$('#sh-save');
   btn.disabled=!any;
   btn.textContent=!any?'Save score':o.done?(issues.length?'Save anyway':'Save score'):'Save progress';
-  const clr=$('#sh-clear'); if(clr){clr.textContent=sh.armedClear?'Tap again to clear':'Clear this score';clr.classList.toggle('armed',!!sh.armedClear);}
+  const clr=$('#sh-clear'), rst=$('#sh-reset');
+  if(clr){clr.textContent=sh.armedClear?'Tap again to clear':'Clear this score';clr.classList.toggle('armed',!!sh.armedClear);}
+  if(rst){rst.textContent=sh.armedClear?'Tap again to reset':'Reset score';rst.classList.toggle('armed',!!sh.armedClear);}
 }
 function closeSheet(){S.sheet=null;$('#sheet-root').innerHTML='';document.documentElement.classList.remove('lock');}
 function saveDoc(doc){const sh=S.sheet;closeSheet();return write(()=>store().saveResult(sh.id,doc),doc?'Score saved':'Score cleared');}
