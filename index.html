@@ -244,6 +244,20 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 <div id="sheet-root"></div>
 <div id="toast" role="status" aria-live="polite" hidden></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyAPAt6QU7JBL8kGNU-BuUGjpcUeanasggc",
+  authDomain: "mens-badminton-scoreboard.firebaseapp.com",
+  projectId: "mens-badminton-scoreboard",
+  storageBucket: "mens-badminton-scoreboard.firebasestorage.app",
+  messagingSenderId: "538301733306",
+  appId: "1:538301733306:web:1d0f15ce384eb45f6be583"
+});
+const firebaseDb = firebase.firestore();
+</script>
+
 <script>
 // ===== LOGIC START =====
 const QUAL_START = 9 * 60, SLOT_MIN = 20;
@@ -530,15 +544,15 @@ const clone=o=>JSON.parse(JSON.stringify(o));
 /* ---------- Storage backends ---------- */
 let backend=null;
 function dbBackend(db){
-  const cfgRef=db.doc('tourney/config'), col=db.collection('results');
-  const onErr=()=>{S.dbError=true;renderStatus();toast('Live updates stopped. Reload the page to reconnect.');};
+  const cfgRef=db.collection('tourney').doc('config'), col=db.collection('results');
+  const onErr=e=>{S.dbError=true;renderStatus();toast('Live updates stopped. '+((e&&e.message)||'Reload the page to reconnect.'));};
   return {
     start(){
       cfgRef.onSnapshot(s=>{S.cfgRemote=s.exists?s.data():null;onData();},onErr);
       col.limit(500).onSnapshot(q=>{const m={};q.docs.forEach(d=>{m[d.id]=d.data();});S.resRemote=m;onData();},onErr);
     },
     setConfig:c=>cfgRef.set(clone(c)),
-    patchConfig:p=>cfgRef.update(clone(p)),
+    patchConfig:p=>cfgRef.set(clone(p),{merge:true}),
     saveResult:(id,r)=>r?col.doc(id).set(clone(r)):col.doc(id).delete()
   };
 }
@@ -987,6 +1001,14 @@ window.addEventListener('hashchange',route);
   const h=(location.hash||'').replace('#','');S.tab=TABS.includes(h)?h:'matches';
   render();
   let db=null,user=null;
+  if(window.firebaseDb){
+    db=window.firebaseDb;
+    S.mode='db';
+    S.canWrite=true;
+    backend=dbBackend(db);
+    backend.start();
+    return;
+  }
   try{if(window.claude&&typeof window.claude.use==='function'){[db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);}}catch(e){db=null;}
   if(db){
     S.mode='db';
