@@ -445,6 +445,36 @@ function makeSample(){
 }
 // ===== LOGIC END =====
 
+const REFEREE_POOL=[
+  'Adnan Bootwala',
+  'Huzefa Madraswala',
+  'Mohammed Kafuri',
+  'Aliasger Mala',
+  'Murtuza Z Lokhandwala',
+  'Huzefa Unwala',
+  'Yusuf Hotelwala',
+  'Murtuza Bohra',
+  'Taha Lakda',
+  'Yusuf Bombaywala'
+];
+const TOURNAMENT_CONTROL={
+  name:'Hasnain Mahesry',
+  role:'Tournament Control · Scoring & Shuttle Manager'
+};
+const DAY_TIMELINE=[
+  ['8:30 AM','Player reporting & check-in'],
+  ['9:00 AM–12:20 PM','Qualifying matches · 5 courts · 50 matches'],
+  ['12:20–12:30 PM','Standings & Top 16 confirmation'],
+  ['12:30–1:30 PM','Lunch / Prayer Break'],
+  ['1:30–2:15 PM','Round of 16 · Wave 1'],
+  ['2:15–3:00 PM','Round of 16 · Wave 2'],
+  ['3:00–3:45 PM','Quarterfinals'],
+  ['3:45–4:00 PM','Bracket update / transition'],
+  ['4:00–5:00 PM','Semifinals'],
+  ['5:00–5:30 PM','Prayer Break'],
+  ['5:30–6:30 PM','Final + 3rd Place Match · simultaneous']
+];
+
 /* ---------- App state ---------- */
 const S={mode:'loading',cfgRemote:undefined,resRemote:undefined,sample:false,sampleCfg:null,sampleRes:null,canWrite:null,tab:'matches',filter:'all',team:'',sheet:null,armed:null,setupDirty:false,dbError:false};
 const $=s=>document.querySelector(s);
@@ -475,7 +505,7 @@ function defaultTeams(){return [
   {id:'t17',name:'T17',players:'Abdul Qadir Ali / Aqueel Shujai'},
   {id:'t18',name:'T18',players:'Huzefa Zaki / Hussain Mandiwala'},
   {id:'t19',name:'T19',players:'Huzefa Madraswala / Burhan Fatehi'},
-  {id:'t20',name:'T20',players:'Aliasger Mala / Shabbir Mewawala'}
+  {id:'t20',name:'T20',players:'Aliasger Mala / Shabbir Mewa'}
 ];}
 function officialFixtures(){
   const rows=[
@@ -771,6 +801,11 @@ function viewSetup(){
   html+='</section>';
 
   html+='<section class="card"><h2>Scoring rule</h2><label class="check"><input type="checkbox" id="decider-counts"'+(c.deciderCounts?' checked':'')+dis+'><span>Count the 5-point deciding game in point difference and points scored. Off means the decider only picks the winner, so every team is ranked on exactly 10 sets.</span></label></section>';
+
+  html+='<section class="card"><h2>Tournament day operations</h2>'+
+    '<p><strong>'+esc(TOURNAMENT_CONTROL.name)+'</strong> — '+esc(TOURNAMENT_CONTROL.role)+'.</p>'+
+    '<p><strong>Player-referee pool:</strong> '+REFEREE_POOL.map(esc).join(' · ')+'</p>'+
+    '<div class="legend">'+DAY_TIMELINE.map(x=>'<div><strong>'+esc(x[0])+'</strong> — '+esc(x[1])+'</div>').join('')+'</div></section>';
 
   html+='<section class="card"><h2>Scorekeepers</h2><p>You can always enter scores. To let court volunteers score from their own phones, give them edit access from the Share menu. People with view access see the same scores live but can’t change them.</p></section>';
 
