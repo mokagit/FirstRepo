@@ -244,14 +244,15 @@ border:2px solid rgba(255,201,65,.8);box-shadow:0 28px 90px rgba(0,0,0,.62),inse
 .poster-tier-title{position:relative;display:inline-block;margin:4px auto 10px;padding:8px 22px;border-radius:999px;background:linear-gradient(#ffd95b,#d69c13);color:#111;border:2px solid #ffe997;font-family:var(--f-display);font-size:clamp(18px,3vw,28px);font-weight:900;box-shadow:0 4px 0 #765000,0 0 18px rgba(255,205,58,.45)}
 .poster-tier-title.gold{margin-top:16px}
 .poster-premium{position:relative;margin:0 auto 4px;min-height:145px;display:flex;align-items:center;justify-content:center;border-radius:27px;background:linear-gradient(145deg,#fff,#e9f0f9);border:3px solid #e2ad30;box-shadow:0 0 18px rgba(255,203,62,.62),0 12px 28px rgba(0,0,0,.28)}
-.brand-calibre{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:clamp(66px,13vw,112px);letter-spacing:-.09em;color:#f20b18;line-height:1}.brand-calibre span{font-size:.16em;vertical-align:baseline;margin-left:6px}
+
 .poster-sponsor-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.real-logo{display:block;width:100%;height:100%;max-width:100%;max-height:112px;object-fit:contain;object-position:center}
+.premium-logo{max-height:125px;width:min(570px,92%);height:auto}
 .poster-sponsor-card{height:145px;border-radius:21px;border:3px solid #dfaa2b;box-shadow:0 0 14px rgba(255,193,38,.48),0 10px 24px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .jetset-card,.scrub-card{background:linear-gradient(145deg,#0c0f14,#030405)}
-.jetset-card{gap:12px}.jetset-plane{font-size:52px;color:#e3ae36;transform:rotate(-15deg);text-shadow:0 2px 8px #000}.jetset-logo{text-align:left;line-height:1}.jetset-logo b{font-size:32px;letter-spacing:.05em}.jetset-logo span{display:block;margin-top:9px;font-size:13px;letter-spacing:.3em;color:#fff}.jetset-logo em{font-style:normal;background:#dcae35;color:#111;border-radius:5px;padding:3px 6px;letter-spacing:0;margin-left:5px}
-.scrub-card{flex-direction:column}.scrub-carline{width:72%;height:18px;border-top:5px solid #e9a11f;border-radius:50% 50% 0 0;margin-bottom:2px}.scrub-logo{font-family:Arial Black,Arial,sans-serif;font-style:italic;font-size:27px;color:#eca122;line-height:1}.scrub-sub{font-size:12px;letter-spacing:.35em;margin-top:6px}.scrub-tag{font-size:9px;font-weight:800;margin-top:9px;color:#f5f5f5}
+
 .autoniche-card{background:#fff;padding:10px}.autoniche-card img{width:100%;height:108px;object-fit:contain;display:block}
-.karahi-card{background:linear-gradient(145deg,#0b4338,#062f28);gap:11px;color:#fff}.karahi-flame{font-size:48px;color:#f09a80}.karahi-logo{text-align:left;font-family:Georgia,serif;font-size:27px;font-weight:900;line-height:.86}.karahi-est{position:absolute;bottom:12px;right:20px;font-size:11px;color:#f0ae61;font-weight:800}
+
 .poster-enter{position:relative;margin:18px auto 1px;width:min(650px,96%);padding:14px 16px;border-radius:999px;border:3px solid #ffd760;background:linear-gradient(#f42c34,#9c0713);color:#fff;font-family:var(--f-display);font-size:clamp(18px,3.5vw,30px);font-weight:900;box-shadow:0 5px 0 #6f070c,0 0 18px rgba(255,206,54,.55);cursor:pointer}
 .poster-enter:active{transform:translateY(2px)}
 @media(max-width:560px){#sponsor-splash{padding:0}.sponsor-poster-premium{min-height:100vh;border-radius:0;padding:14px 9px}.poster-event{margin-top:42px}.poster-sponsor-grid{gap:8px}.poster-sponsor-card{height:112px;border-radius:15px}.jetset-plane{font-size:34px}.jetset-logo b{font-size:23px}.jetset-logo span{font-size:9px}.scrub-logo{font-size:20px}.scrub-tag{font-size:7px}.autoniche-card img{height:82px}.karahi-flame{font-size:34px}.karahi-logo{font-size:20px}.poster-premium{min-height:112px}.poster-enter{margin-top:12px}}
@@ -271,28 +272,22 @@ border:2px solid rgba(255,201,65,.8);box-shadow:0 28px 90px rgba(0,0,0,.62),inse
 
     <div class="poster-tier-title">👑 PREMIUM SPONSOR</div>
     <div class="poster-premium">
-      <div class="brand-calibre">calibre<span>™</span></div>
+      <img class="real-logo premium-logo" src="assets/calibre.svg?v=8" alt="Calibre — Premium Sponsor">
     </div>
 
     <div class="poster-tier-title gold">★ GOLD SPONSORS ★</div>
     <div class="poster-sponsor-grid">
       <div class="poster-sponsor-card jetset-card">
-        <div class="jetset-plane">➤</div>
-        <div class="jetset-logo"><b>JETSET</b><span>PRINTS <em>53</em></span></div>
+        <img class="real-logo" src="assets/jetset.svg?v=8" alt="Jetset Prints">
       </div>
       <div class="poster-sponsor-card scrub-card">
-        <div class="scrub-carline"></div>
-        <div class="scrub-logo">SCRUB N’ SHINE</div>
-        <div class="scrub-sub">AUTO DETAILING</div>
-        <div class="scrub-tag">WHERE YOUR RIDE GETS ITS SHINE BACK</div>
+        <img class="real-logo" src="assets/scrub.svg?v=8" alt="Scrub N' Shine Auto Detailing">
       </div>
       <div class="poster-sponsor-card autoniche-card">
-        <img src="assets/autoniche.svg?v=7" alt="AutoNiche — Family Friendly Auto Repair">
+        <img class="real-logo" src="assets/autoniche.svg?v=8" alt="AutoNiche — Family Friendly Auto Repair">
       </div>
       <div class="poster-sponsor-card karahi-card">
-        <div class="karahi-flame">♨</div>
-        <div class="karahi-logo">KARAHI<br>POINT</div>
-        <div class="karahi-est">EST 2014</div>
+        <img class="real-logo" src="assets/karahi-point.svg?v=8" alt="Karahi Point">
       </div>
     </div>
 
