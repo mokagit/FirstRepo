@@ -226,64 +226,57 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 #toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;z-index:30;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
 .skeleton{height:68px;border-radius:12px;background:var(--surface-2)}
 
-/* Sponsor welcome splash */
-#sponsor-splash{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at top,#173b70 0,#071a31 48%,#03101d 100%);display:flex;align-items:center;justify-content:center;padding:18px;color:#fff;overflow:auto}
-.sponsor-shell{width:min(760px,100%);background:rgba(5,18,34,.96);border:1px solid rgba(242,179,0,.65);border-radius:22px;padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.45);text-align:center}
-.sponsor-kicker{font-family:var(--f-display);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#f2b300;font-weight:700}
-.sponsor-title{font-family:var(--f-display);font-size:34px;line-height:1;margin:6px 0 16px;text-transform:uppercase}
-.sponsor-tier{font-family:var(--f-display);font-size:18px;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
-.sponsor-tier.premium{color:#ffe06b}.sponsor-tier.gold{color:#f2b300}
-.sponsor-premium-card{background:#fff;border:3px solid #f2b300;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:center;min-height:150px}
-.sponsor-premium-card img{width:min(540px,94%);height:auto;display:block}
-.sponsor-gold-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.sponsor-logo-card{position:relative;background:linear-gradient(145deg,#fff,#f5f7fb);border:2px solid #d5a51b;border-radius:16px;padding:14px 14px 38px;min-height:150px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.35)}
-.sponsor-logo-card.dark{background:linear-gradient(145deg,#0a0d12,#151a22)}
-.sponsor-logo-card.jetset{background:linear-gradient(145deg,#111827,#05070a);border-color:#f1c34c}
-.sponsor-logo-card img{width:100%;max-width:310px;max-height:105px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.18))}
-.sponsor-logo-card.jetset img{max-height:118px;transform:scale(1.08)}
-.jetset-mark{display:flex;align-items:center;gap:14px;justify-content:center;width:100%;padding:8px 4px}
-.jetset-plane{font-size:46px;line-height:1;transform:rotate(-8deg);filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
-.jetset-copy{text-align:left;line-height:1}
-.jetset-copy strong{display:block;font-size:31px;letter-spacing:.05em;color:#fff;font-family:var(--f-display)}
-.jetset-copy span{display:block;margin-top:7px;font-size:13px;letter-spacing:.32em;color:#f0d27a;font-weight:700}
-.jetset-num{display:inline-flex!important;align-items:center;justify-content:center;background:#d7ab3d;color:#111!important;border-radius:6px;padding:4px 7px;margin-left:7px;letter-spacing:0!important;font-size:12px!important}
-.sponsor-brand{position:absolute;left:10px;right:10px;bottom:9px;font-size:12px;font-weight:800;letter-spacing:.04em;color:#0b1b33;text-align:center}
-.sponsor-logo-card.dark .sponsor-brand,.sponsor-logo-card.jetset .sponsor-brand{color:#fff}
-.sponsor-logo-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);transform:translateX(-120%);transition:transform .7s ease}
-.sponsor-logo-card:hover::after{transform:translateX(120%)}
-.sponsor-enter{margin-top:18px;width:100%;border:0;border-radius:14px;padding:14px 18px;background:#f2b300;color:#0b1b33;font-weight:800;font-size:17px;cursor:pointer}
-.sponsor-enter:hover{filter:brightness(1.05)}
-.sponsor-note{font-size:12px;color:#afc0da;margin:10px 0 0}
-@media(max-width:560px){.sponsor-shell{padding:15px}.sponsor-title{font-size:27px}.sponsor-gold-grid{grid-template-columns:1fr}.sponsor-logo-card{min-height:130px}.sponsor-logo-card img{max-height:100px}.sponsor-premium-card{min-height:115px}}
+
+/* Poster-style sponsor popup */
+#sponsor-splash{position:fixed;inset:0;z-index:9999;background:#06172d;display:flex;align-items:center;justify-content:center;padding:10px;overflow:auto}
+.sponsor-poster{position:relative;width:min(760px,100%);min-height:92vh;padding:22px 18px 18px;border-radius:22px;text-align:center;color:#fff;overflow:hidden;background:
+radial-gradient(circle at 7% 3%,rgba(160,220,255,.95),transparent 11%),
+radial-gradient(circle at 93% 3%,rgba(160,220,255,.95),transparent 11%),
+linear-gradient(180deg,#0b3b76 0%,#06264f 44%,#04182f 100%);box-shadow:0 25px 80px rgba(0,0,0,.55);border:2px solid rgba(255,194,55,.65)}
+.sponsor-poster:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 42%,rgba(255,255,255,.07) 50%,transparent 58%);pointer-events:none}
+.poster-title{position:relative;font-family:var(--f-display);font-size:clamp(27px,5vw,46px);font-weight:900;font-style:italic;line-height:1.03;text-shadow:0 3px 8px rgba(0,0,0,.35);margin:4px 0 14px}
+.poster-ribbon{position:relative;margin:0 auto 20px;width:min(560px,92%);padding:10px 18px;color:#111;font-family:var(--f-display);font-size:clamp(20px,3.5vw,33px);font-weight:900;background:linear-gradient(90deg,#d69a21,#ffe58a,#d69a21);clip-path:polygon(0 12%,8% 12%,12% 0,88% 0,92% 12%,100% 12%,94% 50%,100% 88%,92% 88%,88% 100%,12% 100%,8% 88%,0 88%,6% 50%);text-shadow:0 1px #fff}
+.poster-tier{position:relative;display:inline-block;margin:4px auto 10px;padding:8px 22px;border-radius:999px;background:linear-gradient(#ffd75a,#d7980e);color:#111;font-family:var(--f-display);font-weight:900;font-size:clamp(18px,3vw,28px);border:2px solid #ffe99a;box-shadow:0 4px 0 #8a5a00,0 0 18px rgba(255,210,66,.6)}
+.poster-premium-card{position:relative;margin:0 auto 18px;padding:18px;background:linear-gradient(135deg,#fff,#eef4fb);border:3px solid #e6b339;border-radius:28px;box-shadow:0 0 20px rgba(255,202,65,.65),0 12px 28px rgba(0,0,0,.28)}
+.poster-premium-card img{display:block;width:min(560px,90%);height:150px;object-fit:contain;margin:auto}
+.poster-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.poster-card{height:154px;border-radius:22px;border:3px solid #e6b339;display:flex;align-items:center;justify-content:center;padding:14px;box-shadow:0 0 15px rgba(255,198,48,.5),0 10px 24px rgba(0,0,0,.28)}
+.poster-card.dark{background:#090b10}.poster-card.light{background:#fff}.poster-card.green{background:#073b32}
+.poster-card img{display:block;width:100%;height:112px;object-fit:contain}
+.poster-enter{position:relative;margin:20px auto 2px;width:min(650px,96%);padding:15px 18px;border-radius:999px;border:3px solid #ffd861;background:linear-gradient(#f82a31,#aa0614);color:#fff;font-family:var(--f-display);font-size:clamp(18px,3.4vw,31px);font-weight:900;box-shadow:0 5px 0 #7a0a10,0 0 18px rgba(255,214,76,.6);cursor:pointer}
+.poster-enter:active{transform:translateY(2px)}
+@media(max-width:560px){#sponsor-splash{padding:6px}.sponsor-poster{padding:15px 10px 12px;min-height:100vh;border-radius:0}.poster-grid{gap:9px}.poster-card{height:116px;padding:8px;border-radius:16px}.poster-card img{height:90px}.poster-premium-card img{height:105px}.poster-enter{margin-top:14px}}
 
 </style>
 
 <div id="sponsor-splash" role="dialog" aria-modal="true" aria-label="Tournament sponsors">
-  <div class="sponsor-shell">
-    <div class="sponsor-kicker">Men's Doubles Badminton Tournament</div>
-    <div class="sponsor-title">Official Tournament Sponsors</div>
+  <div class="sponsor-poster">
+    <div class="poster-lights" aria-hidden="true"></div>
+    <div class="poster-title">Men’s Doubles Community<br>Badminton Tournament</div>
+    <div class="poster-ribbon">OUR VALUED SPONSORS</div>
 
-    <div class="sponsor-tier premium">Premium Sponsor</div>
-    <div class="sponsor-premium-card">
-      <img src="assets/calibre.svg" alt="Calibre — Premium Sponsor">
+    <div class="poster-tier premium">👑 PREMIUM SPONSOR</div>
+    <div class="poster-premium-card">
+      <img src="assets/calibre.svg?v=4" alt="Calibre — Premium Sponsor">
     </div>
 
-    <div class="sponsor-tier gold">Gold Sponsors</div>
-    <div class="sponsor-gold-grid">
-      <div class="sponsor-logo-card jetset" aria-label="Jetset Prints — Gold Sponsor">
-    <div class="jetset-mark">
-      <div class="jetset-plane" aria-hidden="true">✦</div>
-      <div class="jetset-copy"><strong>JETSET</strong><span>PRINTS <b class="jetset-num">53</b></span></div>
-    </div>
-    <div class="sponsor-brand">JETSET PRINTS</div>
-  </div>
-      <div class="sponsor-logo-card dark"><img src="assets/scrub.svg?v=2" alt="Scrub N' Shine Auto Detailing — Gold Sponsor"><div class="sponsor-brand">SCRUB N' SHINE AUTO DETAILING</div></div>
-      <div class="sponsor-logo-card"><img src="assets/autoniche.svg?v=2" alt="AutoNiche — Gold Sponsor"><div class="sponsor-brand">AUTONICHE</div></div>
-      <div class="sponsor-logo-card dark"><img src="assets/karahi-point.svg?v=2" alt="Karahi Point — Gold Sponsor"><div class="sponsor-brand">KARAHI POINT</div></div>
+    <div class="poster-tier gold">🏅 GOLD SPONSORS</div>
+    <div class="poster-grid">
+      <div class="poster-card dark">
+        <img src="assets/jetset.svg?v=4" alt="Jetset Prints">
+      </div>
+      <div class="poster-card dark">
+        <img src="assets/scrub.svg?v=4" alt="Scrub N' Shine Auto Detailing">
+      </div>
+      <div class="poster-card light">
+        <img src="assets/autoniche.svg?v=4" alt="AutoNiche — Family Friendly Auto Repair">
+      </div>
+      <div class="poster-card green">
+        <img src="assets/karahi-point.svg?v=4" alt="Karahi Point">
+      </div>
     </div>
 
-    <button id="sponsor-enter" class="sponsor-enter" type="button">Enter Tournament Scoreboard</button>
-    <p class="sponsor-note">Thank you to our sponsors for supporting the tournament.</p>
+    <button id="sponsor-enter" class="poster-enter" type="button">ENTER TOURNAMENT SCOREBOARD ›</button>
   </div>
 </div>
 
