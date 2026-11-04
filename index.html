@@ -235,14 +235,20 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 .sponsor-tier.premium{color:#ffe06b}.sponsor-tier.gold{color:#f2b300}
 .sponsor-premium-card{background:#fff;border:3px solid #f2b300;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:center;min-height:150px}
 .sponsor-premium-card img{width:min(540px,94%);height:auto;display:block}
-.sponsor-gold-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.sponsor-logo-card{background:#fff;border:2px solid #d5a51b;border-radius:14px;padding:10px;min-height:105px;display:flex;align-items:center;justify-content:center}
-.sponsor-logo-card.dark{background:#090b0f}
-.sponsor-logo-card img{max-width:100%;max-height:86px;object-fit:contain}
+.sponsor-gold-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.sponsor-logo-card{position:relative;background:linear-gradient(145deg,#fff,#f5f7fb);border:2px solid #d5a51b;border-radius:16px;padding:14px 14px 38px;min-height:150px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.35)}
+.sponsor-logo-card.dark{background:linear-gradient(145deg,#0a0d12,#151a22)}
+.sponsor-logo-card.jetset{background:linear-gradient(145deg,#111827,#05070a);border-color:#f1c34c}
+.sponsor-logo-card img{width:100%;max-width:310px;max-height:105px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.18))}
+.sponsor-logo-card.jetset img{max-height:118px;transform:scale(1.08)}
+.sponsor-brand{position:absolute;left:10px;right:10px;bottom:9px;font-size:12px;font-weight:800;letter-spacing:.04em;color:#0b1b33;text-align:center}
+.sponsor-logo-card.dark .sponsor-brand,.sponsor-logo-card.jetset .sponsor-brand{color:#fff}
+.sponsor-logo-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);transform:translateX(-120%);transition:transform .7s ease}
+.sponsor-logo-card:hover::after{transform:translateX(120%)}
 .sponsor-enter{margin-top:18px;width:100%;border:0;border-radius:14px;padding:14px 18px;background:#f2b300;color:#0b1b33;font-weight:800;font-size:17px;cursor:pointer}
 .sponsor-enter:hover{filter:brightness(1.05)}
 .sponsor-note{font-size:12px;color:#afc0da;margin:10px 0 0}
-@media(max-width:560px){.sponsor-shell{padding:15px}.sponsor-title{font-size:27px}.sponsor-gold-grid{grid-template-columns:1fr}.sponsor-logo-card{min-height:84px}.sponsor-premium-card{min-height:115px}}
+@media(max-width:560px){.sponsor-shell{padding:15px}.sponsor-title{font-size:27px}.sponsor-gold-grid{grid-template-columns:1fr}.sponsor-logo-card{min-height:130px}.sponsor-logo-card img{max-height:100px}.sponsor-premium-card{min-height:115px}}
 
 </style>
 
@@ -258,10 +264,10 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 
     <div class="sponsor-tier gold">Gold Sponsors</div>
     <div class="sponsor-gold-grid">
-      <div class="sponsor-logo-card dark"><img src="assets/jetset.svg" alt="Jetset Prints — Gold Sponsor"></div>
-      <div class="sponsor-logo-card dark"><img src="assets/scrub.svg" alt="Scrub N' Shine Auto Detailing — Gold Sponsor"></div>
-      <div class="sponsor-logo-card"><img src="assets/autoniche.svg" alt="AutoNiche — Gold Sponsor"></div>
-      <div class="sponsor-logo-card dark"><img src="assets/karahi-point.svg" alt="Karahi Point — Gold Sponsor"></div>
+      <div class="sponsor-logo-card jetset"><img src="assets/jetset.svg?v=2" alt="Jetset Prints — Gold Sponsor"><div class="sponsor-brand">JETSET PRINTS</div></div>
+      <div class="sponsor-logo-card dark"><img src="assets/scrub.svg?v=2" alt="Scrub N' Shine Auto Detailing — Gold Sponsor"><div class="sponsor-brand">SCRUB N' SHINE AUTO DETAILING</div></div>
+      <div class="sponsor-logo-card"><img src="assets/autoniche.svg?v=2" alt="AutoNiche — Gold Sponsor"><div class="sponsor-brand">AUTONICHE</div></div>
+      <div class="sponsor-logo-card dark"><img src="assets/karahi-point.svg?v=2" alt="Karahi Point — Gold Sponsor"><div class="sponsor-brand">KARAHI POINT</div></div>
     </div>
 
     <button id="sponsor-enter" class="sponsor-enter" type="button">Enter Tournament Scoreboard</button>
