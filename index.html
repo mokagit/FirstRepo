@@ -227,71 +227,53 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 .skeleton{height:68px;border-radius:12px;background:var(--surface-2)}
 
 
-/* Poster-style sponsor popup */
-#sponsor-splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:8px;overflow:auto;background:#020b17}
-.sponsor-poster-premium{position:relative;width:min(760px,100%);min-height:94vh;padding:20px 18px 18px;border-radius:26px;overflow:hidden;text-align:center;color:#fff;background:
-linear-gradient(180deg,rgba(11,52,105,.98),rgba(4,29,63,.99) 56%,rgba(2,16,36,.99)),
-radial-gradient(circle at 50% 10%,rgba(51,153,255,.35),transparent 38%);
-border:2px solid rgba(255,201,65,.8);box-shadow:0 28px 90px rgba(0,0,0,.62),inset 0 0 80px rgba(17,112,220,.15)}
-.sponsor-poster-premium:before{content:"";position:absolute;inset:auto -15% 0;height:34%;background:repeating-linear-gradient(90deg,transparent 0 8%,rgba(64,170,255,.14) 8.2% 8.5%,transparent 8.8% 16%);transform:perspective(300px) rotateX(64deg);transform-origin:bottom;pointer-events:none}
-.poster-close{position:absolute;right:14px;top:12px;z-index:5;width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(1,11,25,.55);color:#fff;font-size:27px;line-height:34px;cursor:pointer}
-.poster-glow{position:absolute;top:-70px;width:220px;height:220px;border-radius:50%;filter:blur(35px);background:rgba(102,199,255,.42)}.poster-glow.g1{left:-70px}.poster-glow.g2{right:-70px}
-.poster-shuttle{position:absolute;top:12px;left:50%;transform:translateX(-50%) rotate(-18deg);font-size:39px;filter:drop-shadow(0 0 12px rgba(255,215,70,.8))}
-.poster-event{position:relative;margin-top:38px;font-family:var(--f-display);font-size:clamp(22px,4.3vw,37px);font-weight:900;font-style:italic;letter-spacing:.01em;text-shadow:0 3px 8px rgba(0,0,0,.45)}
-.poster-main-title{position:relative;font-family:var(--f-display);font-size:clamp(45px,9vw,78px);font-weight:1000;line-height:.94;letter-spacing:.02em;color:#ffd84f;text-shadow:0 4px 0 #735000,0 8px 18px rgba(0,0,0,.48)}
-.poster-sub-title{position:relative;display:inline-block;margin-top:4px;padding:4px 32px 6px;background:linear-gradient(#c91b26,#830b15);border:2px solid #f7c843;color:#fff;font-family:var(--f-display);font-size:clamp(22px,4.2vw,36px);font-weight:900;letter-spacing:.18em;clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%)}
-.poster-banner{position:relative;margin:18px auto 14px;width:min(520px,88%);padding:9px 18px;background:linear-gradient(90deg,#c58b15,#ffe88e,#c58b15);color:#101010;border-radius:14px;font-family:var(--f-display);font-weight:900;font-size:clamp(19px,3.7vw,31px);box-shadow:0 5px 15px rgba(0,0,0,.28)}
-.poster-tier-title{position:relative;display:inline-block;margin:4px auto 10px;padding:8px 22px;border-radius:999px;background:linear-gradient(#ffd95b,#d69c13);color:#111;border:2px solid #ffe997;font-family:var(--f-display);font-size:clamp(18px,3vw,28px);font-weight:900;box-shadow:0 4px 0 #765000,0 0 18px rgba(255,205,58,.45)}
-.poster-tier-title.gold{margin-top:16px}
-.poster-premium{position:relative;margin:0 auto 4px;min-height:145px;display:flex;align-items:center;justify-content:center;border-radius:27px;background:linear-gradient(145deg,#fff,#e9f0f9);border:3px solid #e2ad30;box-shadow:0 0 18px rgba(255,203,62,.62),0 12px 28px rgba(0,0,0,.28)}
-
-.poster-sponsor-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.real-logo{display:block;width:100%;height:100%;max-width:100%;max-height:112px;object-fit:contain;object-position:center}
-.premium-logo{max-height:125px;width:min(570px,92%);height:auto}
-.poster-sponsor-card{height:145px;border-radius:21px;border:3px solid #dfaa2b;box-shadow:0 0 14px rgba(255,193,38,.48),0 10px 24px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.jetset-card,.scrub-card{background:linear-gradient(145deg,#0c0f14,#030405)}
-
-.autoniche-card{background:#fff;padding:10px}.autoniche-card img{width:100%;height:108px;object-fit:contain;display:block}
-
-.poster-enter{position:relative;margin:18px auto 1px;width:min(650px,96%);padding:14px 16px;border-radius:999px;border:3px solid #ffd760;background:linear-gradient(#f42c34,#9c0713);color:#fff;font-family:var(--f-display);font-size:clamp(18px,3.5vw,30px);font-weight:900;box-shadow:0 5px 0 #6f070c,0 0 18px rgba(255,206,54,.55);cursor:pointer}
-.poster-enter:active{transform:translateY(2px)}
-@media(max-width:560px){#sponsor-splash{padding:0}.sponsor-poster-premium{min-height:100vh;border-radius:0;padding:14px 9px}.poster-event{margin-top:42px}.poster-sponsor-grid{gap:8px}.poster-sponsor-card{height:112px;border-radius:15px}.jetset-plane{font-size:34px}.jetset-logo b{font-size:23px}.jetset-logo span{font-size:9px}.scrub-logo{font-size:20px}.scrub-tag{font-size:7px}.autoniche-card img{height:82px}.karahi-flame{font-size:34px}.karahi-logo{font-size:20px}.poster-premium{min-height:112px}.poster-enter{margin-top:12px}}
+/* Exact sponsor-poster image popup */
+#sponsor-splash{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  padding:10px;background:rgba(1,7,18,.96);overflow:auto
+}
+.sponsor-image-modal{
+  position:relative;
+  width:min(700px,96vw);
+  margin:auto;
+  filter:drop-shadow(0 24px 60px rgba(0,0,0,.58))
+}
+.sponsor-popup-image{
+  display:block;width:100%;height:auto;
+  border-radius:18px;
+  border:1px solid rgba(255,215,90,.55)
+}
+.sponsor-image-close{
+  position:absolute;right:12px;top:12px;z-index:3;
+  width:42px;height:42px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.9);
+  background:rgba(0,0,0,.62);color:#fff;
+  font-size:29px;line-height:34px;font-weight:400;cursor:pointer
+}
+.sponsor-image-enter{
+  position:absolute;left:12%;right:12%;bottom:2.7%;
+  height:9.2%;
+  border:0;border-radius:999px;background:transparent;
+  cursor:pointer
+}
+.sponsor-image-enter:focus-visible{
+  outline:3px solid #fff;outline-offset:3px
+}
+@media(max-width:560px){
+  #sponsor-splash{padding:0;background:#031126}
+  .sponsor-image-modal{width:100vw}
+  .sponsor-popup-image{border-radius:0;border:0;min-height:100vh;object-fit:contain;background:#031126}
+  .sponsor-image-close{right:10px;top:10px}
+}
 
 </style>
 
 <div id="sponsor-splash" role="dialog" aria-modal="true" aria-label="Tournament sponsors">
-  <div class="sponsor-poster-premium">
-    <button class="poster-close" id="sponsor-close" type="button" aria-label="Close">×</button>
-    <div class="poster-glow g1"></div><div class="poster-glow g2"></div>
-    <div class="poster-shuttle">🏸</div>
-
-    <div class="poster-event">Men’s Doubles Community</div>
-    <div class="poster-main-title">BADMINTON</div>
-    <div class="poster-sub-title">TOURNAMENT</div>
-    <div class="poster-banner">OUR VALUED SPONSORS</div>
-
-    <div class="poster-tier-title">👑 PREMIUM SPONSOR</div>
-    <div class="poster-premium">
-      <img class="real-logo premium-logo" src="assets/calibre.svg?v=8" alt="Calibre — Premium Sponsor">
-    </div>
-
-    <div class="poster-tier-title gold">★ GOLD SPONSORS ★</div>
-    <div class="poster-sponsor-grid">
-      <div class="poster-sponsor-card jetset-card">
-        <img class="real-logo" src="assets/jetset.svg?v=8" alt="Jetset Prints">
-      </div>
-      <div class="poster-sponsor-card scrub-card">
-        <img class="real-logo" src="assets/scrub.svg?v=8" alt="Scrub N' Shine Auto Detailing">
-      </div>
-      <div class="poster-sponsor-card autoniche-card">
-        <img class="real-logo" src="assets/autoniche.svg?v=8" alt="AutoNiche — Family Friendly Auto Repair">
-      </div>
-      <div class="poster-sponsor-card karahi-card">
-        <img class="real-logo" src="assets/karahi-point.svg?v=8" alt="Karahi Point">
-      </div>
-    </div>
-
-    <button id="sponsor-enter" class="poster-enter" type="button">🏸 ENTER TOURNAMENT SCOREBOARD ›</button>
+  <div class="sponsor-image-modal">
+    <button id="sponsor-close" class="sponsor-image-close" type="button" aria-label="Close sponsor popup">×</button>
+    <img class="sponsor-popup-image" src="assets/sponsor-popup.jpg?v=1" alt="Men’s Doubles Community Badminton Tournament sponsors">
+    <button id="sponsor-enter" class="sponsor-image-enter" type="button" aria-label="Enter Tournament Scoreboard"></button>
   </div>
 </div>
 
@@ -1158,19 +1140,13 @@ function route(){const h=(location.hash||'').replace('#','');S.tab=TABS.includes
 window.addEventListener('hashchange',route);
 
 const sponsorEnter=document.getElementById('sponsor-enter');
-if(sponsorEnter){
-  sponsorEnter.addEventListener('click',()=>{
-    const splash=document.getElementById('sponsor-splash');
-    if(splash) splash.style.display='none';
-  });
-}
 const sponsorClose=document.getElementById('sponsor-close');
-if(sponsorClose){
-  sponsorClose.addEventListener('click',()=>{
-    const splash=document.getElementById('sponsor-splash');
-    if(splash) splash.style.display='none';
-  });
+function closeSponsorSplash(){
+  const splash=document.getElementById('sponsor-splash');
+  if(splash) splash.style.display='none';
 }
+if(sponsorEnter) sponsorEnter.addEventListener('click',closeSponsorSplash);
+if(sponsorClose) sponsorClose.addEventListener('click',closeSponsorSplash);
 
 /* ---------- Boot ---------- */
 (async function boot(){
