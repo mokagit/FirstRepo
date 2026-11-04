@@ -225,7 +225,48 @@ details.more summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(-
 /* Toast */
 #toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;z-index:30;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
 .skeleton{height:68px;border-radius:12px;background:var(--surface-2)}
+
+/* Sponsor welcome splash */
+#sponsor-splash{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at top,#173b70 0,#071a31 48%,#03101d 100%);display:flex;align-items:center;justify-content:center;padding:18px;color:#fff;overflow:auto}
+.sponsor-shell{width:min(760px,100%);background:rgba(5,18,34,.96);border:1px solid rgba(242,179,0,.65);border-radius:22px;padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.45);text-align:center}
+.sponsor-kicker{font-family:var(--f-display);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#f2b300;font-weight:700}
+.sponsor-title{font-family:var(--f-display);font-size:34px;line-height:1;margin:6px 0 16px;text-transform:uppercase}
+.sponsor-tier{font-family:var(--f-display);font-size:18px;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+.sponsor-tier.premium{color:#ffe06b}.sponsor-tier.gold{color:#f2b300}
+.sponsor-premium-card{background:#fff;border:3px solid #f2b300;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:center;min-height:150px}
+.sponsor-premium-card img{width:min(540px,94%);height:auto;display:block}
+.sponsor-gold-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sponsor-logo-card{background:#fff;border:2px solid #d5a51b;border-radius:14px;padding:10px;min-height:105px;display:flex;align-items:center;justify-content:center}
+.sponsor-logo-card.dark{background:#090b0f}
+.sponsor-logo-card img{max-width:100%;max-height:86px;object-fit:contain}
+.sponsor-enter{margin-top:18px;width:100%;border:0;border-radius:14px;padding:14px 18px;background:#f2b300;color:#0b1b33;font-weight:800;font-size:17px;cursor:pointer}
+.sponsor-enter:hover{filter:brightness(1.05)}
+.sponsor-note{font-size:12px;color:#afc0da;margin:10px 0 0}
+@media(max-width:560px){.sponsor-shell{padding:15px}.sponsor-title{font-size:27px}.sponsor-gold-grid{grid-template-columns:1fr}.sponsor-logo-card{min-height:84px}.sponsor-premium-card{min-height:115px}}
+
 </style>
+
+<div id="sponsor-splash" role="dialog" aria-modal="true" aria-label="Tournament sponsors">
+  <div class="sponsor-shell">
+    <div class="sponsor-kicker">Men's Doubles Badminton Tournament</div>
+    <div class="sponsor-title">Official Tournament Sponsors</div>
+
+    <div class="sponsor-tier premium">Premium Sponsor</div>
+    <div class="sponsor-premium-card">
+      <img src="assets/calibre.svg" alt="Calibre — Premium Sponsor">
+    </div>
+
+    <div class="sponsor-tier gold">Gold Sponsors</div>
+    <div class="sponsor-gold-grid">
+      <div class="sponsor-logo-card dark"><img src="assets/jetset.svg" alt="Jetset Prints — Gold Sponsor"></div>
+      <div class="sponsor-logo-card dark"><img src="assets/scrub.svg" alt="Scrub N' Shine Mobile Detailing — Gold Sponsor"></div>
+      <div class="sponsor-logo-card"><img src="assets/autoniche.svg" alt="AutoNiche — Gold Sponsor"></div>
+    </div>
+
+    <button id="sponsor-enter" class="sponsor-enter" type="button">Enter Tournament Scoreboard</button>
+    <p class="sponsor-note">Thank you to our sponsors for supporting the tournament.</p>
+  </div>
+</div>
 
 <header class="top">
   <div class="wrap">
@@ -1088,6 +1129,14 @@ function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTi
 const TABS=['matches','standings','knockout','setup'];
 function route(){const h=(location.hash||'').replace('#','');S.tab=TABS.includes(h)?h:'matches';S.armed=null;if(S.tab!=='setup')S.setupDirty=false;render();window.scrollTo(0,0);}
 window.addEventListener('hashchange',route);
+
+const sponsorEnter=document.getElementById('sponsor-enter');
+if(sponsorEnter){
+  sponsorEnter.addEventListener('click',()=>{
+    const splash=document.getElementById('sponsor-splash');
+    if(splash) splash.style.display='none';
+  });
+}
 
 /* ---------- Boot ---------- */
 (async function boot(){
